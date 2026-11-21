@@ -1,0 +1,32 @@
+name: Spring Boot CI-CD
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: [self-hosted, linux, x64]
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Check Environment
+        run: |
+          echo "Running on EC2 Self-Hosted Runner"
+          whoami
+          hostname
+
+      - name: Check Docker
+        run: docker --version
+
+      - name: Check Kubernetes
+        run: kubectl get nodes
+
+      - name: Check Minikube
+        run: minikube status
