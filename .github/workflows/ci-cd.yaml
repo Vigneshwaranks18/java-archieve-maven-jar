@@ -30,3 +30,10 @@ jobs:
 
       - name: Check Minikube
         run: minikube status
+
+      - name: Build Spring Boot Application
+        run: ./mvnw clean package -DskipTests
+
+      - name: Build Docker Image
+        run: |
+          docker build -t my-springboot-app:${{ github.sha }} 
