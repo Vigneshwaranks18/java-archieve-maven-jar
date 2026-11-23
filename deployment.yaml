@@ -14,16 +14,18 @@ spec:
       labels:
         app: springboot-app
     spec:
+      imagePullSecrets:
+        - name: ecr-secret
       containers:
-      - name: springboot-container
-        image: my-springboot-app:latest
-        imagePullPolicy: IfNotPresent
-        ports:
-        - containerPort: 8080
-        resources:
-          limits:
-            cpu: "500m"
-            memory: "512Mi"
-          requests:
-            cpu: "200m"
-            memory: "256Mi"
+        - name: springboot-container
+          image: 676787763280.dkr.ecr.ap-south-1.amazonaws.com/my-springboot-app:v1
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+          resources:
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+            requests:
+              cpu: "200m"
+              memory: "256Mi"
