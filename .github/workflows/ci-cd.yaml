@@ -37,3 +37,10 @@ jobs:
       - name: Build Docker Image
         run: |
           docker build -t my-springboot-app:${{ github.sha }} .
+
+      - name: Deploy to Kubernetes
+        run: |
+          kubectl set image deployment/springboot-app-deployment \
+          springboot-container=676787763280.dkr.ecr.ap-south-1.amazonaws.com/my-springboot-app:${GITHUB_SHA}
+
+          kubectl rollout status deployment/springboot-app-deployment
